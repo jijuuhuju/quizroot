@@ -12,7 +12,7 @@ body{
   background:#0a0f1d;
   color:#fff;
   text-align:center;
-  padding:20px;
+  padding:15px;
   margin:0;
 }
 :root {
@@ -20,7 +20,7 @@ body{
   --sub: #00d2ff;
 }
 .brand {
-  font-size:48px;
+  font-size:40px;
   font-weight:900;
   background:linear-gradient(
     45deg, var(--sub), var(--main)
@@ -30,44 +30,43 @@ body{
     transparent;
   margin:10px 0 0 0;
 }
-/* 🌟 横幅を大きく広げました */
+/* 🌟 横幅を大きすぎず小さすぎない500pxに */
 #box{
-  max-width:650px;
-  width:95%;
-  margin:20px auto;
+  max-width:500px;
+  width:100%;
+  margin:15px auto;
   background:#111827;
-  padding:25px;
-  border-radius:16px;
+  padding:20px;
+  border-radius:14px;
   border:1px solid #1f2937;
   box-sizing:border-box;
 }
 .tabs {
   display:flex;
-  gap:15px;
+  gap:10px;
   justify-content:center;
-  margin-bottom:25px;
+  margin-bottom:20px;
 }
-/* 🌟 タブボタンを大きく */
 .tab-btn{
   background:#1f2937;
   color:#fff;
   border:1px solid #374151;
-  padding:12px 24px;
+  padding:10px 20px;
   border-radius:8px;
-  font-size:18px;
+  font-size:16px;
   font-weight:bold;
   cursor:pointer;
 }
-/* 🌟 4択ボタンを大きく */
+/* 🌟 ボタンの余白を上品な大きさに縮小 */
 .btn{
   width:100%;
-  padding:22px;
-  margin:10px 0;
+  padding:16px 20px;
+  margin:8px 0;
   color:#fff;
   font-weight:bold;
   border:none;
-  border-radius:12px;
-  font-size:20px;
+  border-radius:10px;
+  font-size:18px;
   text-align:left;
   box-sizing:border-box;
   cursor:pointer;
@@ -76,44 +75,43 @@ body{
   display:flex;
   justify-content:
     space-between;
-  padding:12px 0;
-  font-size:18px;
+  padding:10px 0;
+  font-size:16px;
   border-bottom:
     1px solid #1f2937;
 }
-/* 🌟 テンキーを大きく */
 .key{
   background:#1f2937;
   color:#fff;
   border:1px solid #374151;
-  font-size:24px;
+  font-size:22px;
   font-weight:bold;
-  padding:20px;
-  border-radius:10px;
+  padding:16px;
+  border-radius:8px;
   cursor:pointer;
 }
 input,select{
   width:100%;
-  padding:14px;
-  margin:10px 0;
+  padding:12px;
+  margin:8px 0;
   background:#1f2937;
   color:#fff;
   border:1px solid #374151;
   border-radius:8px;
   text-align:center;
-  font-size:18px;
+  font-size:16px;
   box-sizing:border-box;
 }
 #notif{
   background:
     rgba(0,102,255,0.1);
   border:1px solid #1e3a8a;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:20px;
-  font-size:16px;
+  padding:12px;
+  border-radius:8px;
+  margin-bottom:15px;
+  font-size:14px;
   text-align:left;
-  min-height:60px;
+  min-height:55px;
 }
 </style>
 </head>
@@ -123,8 +121,8 @@ input,select{
   Quizroot
 </h1>
 <p style="color:#516385;
-  margin:5px 0 25px 0;
-  font-size:16px;">
+  margin:5px 0 20px 0;
+  font-size:15px;">
   AIをハックせよ
 </p>
 
@@ -139,11 +137,11 @@ input,select{
   <!-- 1.ロビー -->
   <div id="d1">
     <div style="background:#1f2937;
-      padding:15px;
+      padding:12px;
       border-radius:8px;
       text-align:left;
-      margin-bottom:20px;
-      font-size:16px;
+      margin-bottom:15px;
+      font-size:15px;
       line-height:1.5;">
       <span style="color:var(--sub);
         font-weight:bold;">
@@ -156,7 +154,7 @@ input,select{
         color:var(--sub);"></span>
     </div>
     
-    <div style="font-size:14px;
+    <div style="font-size:13px;
       color:var(--sub);
       text-align:left;
       font-weight:bold;">
@@ -167,17 +165,17 @@ input,select{
     
     <div id="pd" style="
       color:var(--sub);
-      font-size:36px;
+      font-size:32px;
       font-weight:bold;
-      letter-spacing:6px;
-      height:45px;
-      margin:15px 0;"></div>
+      letter-spacing:5px;
+      height:40px;
+      margin:10px 0;"></div>
       
     <div style="display:grid;
       grid-template-columns:
         repeat(3,1fr);
-      gap:12px;
-      max-width:260px;
+      gap:10px;
+      max-width:220px;
       margin:0 auto;">
       <button class="key" onclick="k('1')">1</button>
       <button class="key" onclick="k('2')">2</button>
@@ -197,25 +195,25 @@ input,select{
   <!-- 2.ゲーム -->
   <div id="d2" style="display:none;">
     <div id="notif"></div>
-    <h2 id="qt" style="margin-bottom:20px; text-align:left;"></h2>
+    <h3 id="qt" style="margin-bottom:15px; text-align:left;"></h3>
     <button id="b0" class="btn" style="background:var(--sub);" onclick="s(0)"></button>
     <button id="b1" class="btn" style="background:var(--main);" onclick="s(1)"></button>
     <button id="b2" class="btn" style="background:#1d4ed8;" onclick="s(2)"></button>
     <button id="b3" class="btn" style="background:#6366f1;" onclick="s(3)"></button>
-    <div id="list" style="text-align:left; margin-top:25px;"></div>
+    <div id="list" style="text-align:left; margin-top:20px;"></div>
   </div>
 
   <!-- 3.クリエイト -->
   <div id="d3" style="display:none;">
-    <div id="ccnt" style="color:#00ffcc; font-weight:bold; margin-bottom:15px; font-size:18px;">現在の作成数: 0問</div>
+    <div id="ccnt" style="color:#00ffcc; font-weight:bold; margin-bottom:12px; font-size:16px;">現在の作成数: 0問</div>
     <input id="cq" placeholder="問題文を入力"><br>
     <input id="c0" placeholder="選択肢 ①"><br>
     <input id="c1" placeholder="選択肢 ②"><br>
     <input id="c2" placeholder="選択肢 ③"><br>
     <input id="c3" placeholder="選択肢 ④"><br>
     <select id="ca"><option value="0">正解：①</option><option value="1">正解：②</option><option value="2">正解：③</option><option value="3">正解：④</option></select>
-    <button class="tab-btn" style="width:100%; margin-top:15px; padding:12px; background:#1f2937; border:1px solid #00ffcc; color:#00ffcc; font-weight:bold;" onclick="add()">➕ 新しく問題を追加</button>
-    <button class="tab-btn" style="width:100%; margin-top:15px; padding:12px; background:#0066ff; font-weight:bold;" onclick="startC()">🚀 バトル開始！</button>
+    <button class="tab-btn" style="width:100%; margin-top:12px; padding:10px; background:#1f2937; border:1px solid #00ffcc; color:#00ffcc; font-weight:bold;" onclick="add()">➕ 新しく問題を追加</button>
+    <button class="tab-btn" style="width:100%; margin-top:12px; padding:10px; background:#0066ff; font-weight:bold;" onclick="startC()">🚀 バトル開始！</button>
   </div>
 </div>
 
@@ -284,7 +282,6 @@ function startC() {
   if(cList.length > 0) start(cList);
 }
 
-// 🛠️ バグ修正：tabs.style.style を tabs.style.display に修正！
 function start(set) {
   qList = set; cur = 0;
   scores.forEach(p => { p.s = 0; p.st = 0; });
@@ -299,9 +296,9 @@ function showQ() {
     let pts = scores.find(p => !p.b).s;
     let needPts = Math.round((qList.length * 1000) / 2);
     d2.innerHTML = `
-      <h2 style="font-size:28px;">終了！スコア: ${pts}</h2>
-      ${pts >= needPts ? '<h3 style="color:#10b981; font-size:22px;">クリア！コード:<br>【ICE-BLUE-2026】</h3>':'<h3 style="color:#ef4444;">失敗</h3>'}
-      <button onclick="location.reload()" style="padding:15px 30px; font-size:18px; font-weight:bold; background:var(--main); color:#fff; border:none; border-radius:8px; cursor:pointer; margin-top:15px;">ロビーに戻る</button>`;
+      <h2 style="font-size:24px;">終了！スコア: ${pts}</h2>
+      ${pts >= needPts ? '<h3 style="color:#10b981; font-size:20px;">クリア！コード:<br>【ICE-BLUE-2026】</h3>':'<h3 style="color:#ef4444;">失敗</h3>'}
+      <button onclick="location.reload()" style="padding:12px 24px; font-size:16px; font-weight:bold; background:var(--main); color:#fff; border:none; border-radius:8px; cursor:pointer; margin-top:12px;">ロビーに戻る</button>`;
     return;
   }
   qt.innerText = `Q${cur+1}: ${qList[cur].q}`;
