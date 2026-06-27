@@ -2,121 +2,220 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>QR</title>
+<meta name="viewport" 
+  content="width=device-width,
+  initial-scale=1.0">
+<title>Quizroot</title>
 <style>
 body{
+  font-family:sans-serif;
   background:#0a0f1d;
   color:#fff;
   text-align:center;
+  padding:20px;
+  margin:0;
 }
+:root {
+  --main: #0066ff;
+  --sub: #00d2ff;
+}
+.brand {
+  font-size:48px;
+  font-weight:900;
+  background:linear-gradient(
+    45deg, var(--sub), var(--main)
+  );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:
+    transparent;
+  margin:10px 0 0 0;
+}
+/* 🌟 横幅を大きく広げました */
 #box{
-  max-width:400px;
-  margin:0 auto;
-  background:#111;
-  padding:10px;
+  max-width:650px;
+  width:95%;
+  margin:20px auto;
+  background:#111827;
+  padding:25px;
+  border-radius:16px;
+  border:1px solid #1f2937;
+  box-sizing:border-box;
 }
+.tabs {
+  display:flex;
+  gap:15px;
+  justify-content:center;
+  margin-bottom:25px;
+}
+/* 🌟 タブボタンを大きく */
+.tab-btn{
+  background:#1f2937;
+  color:#fff;
+  border:1px solid #374151;
+  padding:12px 24px;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+}
+/* 🌟 4択ボタンを大きく */
 .btn{
-  width:90%;
-  padding:15px;
-  margin:5px;
-  background:#06f;
+  width:100%;
+  padding:22px;
+  margin:10px 0;
   color:#fff;
   font-weight:bold;
+  border:none;
+  border-radius:12px;
+  font-size:20px;
+  text-align:left;
+  box-sizing:border-box;
+  cursor:pointer;
 }
 .row{
   display:flex;
   justify-content:
     space-between;
+  padding:12px 0;
+  font-size:18px;
+  border-bottom:
+    1px solid #1f2937;
+}
+/* 🌟 テンキーを大きく */
+.key{
+  background:#1f2937;
+  color:#fff;
+  border:1px solid #374151;
+  font-size:24px;
+  font-weight:bold;
+  padding:20px;
+  border-radius:10px;
+  cursor:pointer;
+}
+input,select{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  background:#1f2937;
+  color:#fff;
+  border:1px solid #374151;
+  border-radius:8px;
+  text-align:center;
+  font-size:18px;
+  box-sizing:border-box;
+}
+#notif{
+  background:
+    rgba(0,102,255,0.1);
+  border:1px solid #1e3a8a;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+  font-size:16px;
+  text-align:left;
+  min-height:60px;
 }
 </style>
 </head>
 <body>
 
-<h1 id="logo"
-  style="color:#0df;">
+<h1 id="logo" class="brand">
   Quizroot
 </h1>
+<p style="color:#516385;
+  margin:5px 0 25px 0;
+  font-size:16px;">
+  AIをハックせよ
+</p>
 
 <div id="box">
-  <div id="tabs">
-    <button onclick="v(1)">
-      ロビー
-    </button>
-    <button onclick="v(3)">
-      作製
-    </button>
+  <div id="tabs" class="tabs">
+    <button class="tab-btn"
+      onclick="v(1)">🔑 ロビー</button>
+    <button class="tab-btn"
+      onclick="v(3)">🔧 作製</button>
   </div>
 
   <!-- 1.ロビー -->
   <div id="d1">
-    PIN:<span id="spin"></span>
-    <br>
-    コード入力:
+    <div style="background:#1f2937;
+      padding:15px;
+      border-radius:8px;
+      text-align:left;
+      margin-bottom:20px;
+      font-size:16px;
+      line-height:1.5;">
+      <span style="color:var(--sub);
+        font-weight:bold;">
+        📅 ミッション:
+      </span>
+      1500点以上で限定スキン！<br>
+      本日のアクセスPIN:
+      <span id="spin" style="
+        font-weight:bold;
+        color:var(--sub);"></span>
+    </div>
+    
+    <div style="font-size:14px;
+      color:var(--sub);
+      text-align:left;
+      font-weight:bold;">
+      🎁 限定スキン解放コード
+    </div>
     <input id="inp"
-      onkeydown="cc(event)">
-    <br>
-    <div id="pd"
-      style="color:#0df;
-      font-size:24px;"></div>
-    <button onclick="k('1')">1</button>
-    <button onclick="k('2')">2</button>
-    <button onclick="k('3')">3</button><br>
-    <button onclick="k('4')">4</button>
-    <button onclick="k('5')">5</button>
-    <button onclick="k('6')">6</button><br>
-    <button onclick="k('7')">7</button>
-    <button onclick="k('8')">8</button>
-    <button onclick="k('9')">9</button><br>
-    <button onclick="k('C')"
-      style="background:red;">
-      C
-    </button>
-    <button onclick="k('0')">0</button>
-    <button onclick="k('E')"
-      style="background:green;">
-      ▶
-    </button>
+      placeholder="コードを入力してEnter">
+    
+    <div id="pd" style="
+      color:var(--sub);
+      font-size:36px;
+      font-weight:bold;
+      letter-spacing:6px;
+      height:45px;
+      margin:15px 0;"></div>
+      
+    <div style="display:grid;
+      grid-template-columns:
+        repeat(3,1fr);
+      gap:12px;
+      max-width:260px;
+      margin:0 auto;">
+      <button class="key" onclick="k('1')">1</button>
+      <button class="key" onclick="k('2')">2</button>
+      <button class="key" onclick="k('3')">3</button>
+      <button class="key" onclick="k('4')">4</button>
+      <button class="key" onclick="k('5')">5</button>
+      <button class="key" onclick="k('6')">6</button>
+      <button class="key" onclick="k('7')">7</button>
+      <button class="key" onclick="k('8')">8</button>
+      <button class="key" onclick="k('9')">9</button>
+      <button class="key" style="background:#dc2626; border:none;" onclick="k('C')">C</button>
+      <button class="key" onclick="k('0')">0</button>
+      <button class="key" style="background:#16a34a; border:none;" onclick="k('E')">▶</button>
+    </div>
   </div>
 
   <!-- 2.ゲーム -->
-  <div id="d2"
-    style="display:none;">
-    <div id="notif"
-      style="color:#0ff;
-      background:#222;
-      text-align:left;">
-    </div>
-    <h3 id="qt"></h3>
-    <button id="b0" class="btn"
-      onclick="s(0)"></button>
-    <button id="b1" class="btn"
-      onclick="s(1)"></button>
-    <button id="b2" class="btn"
-      onclick="s(2)"></button>
-    <button id="b3" class="btn"
-      onclick="s(3)"></button>
-    <div id="list"
-      style="text-align:left;">
-    </div>
+  <div id="d2" style="display:none;">
+    <div id="notif"></div>
+    <h2 id="qt" style="margin-bottom:20px; text-align:left;"></h2>
+    <button id="b0" class="btn" style="background:var(--sub);" onclick="s(0)"></button>
+    <button id="b1" class="btn" style="background:var(--main);" onclick="s(1)"></button>
+    <button id="b2" class="btn" style="background:#1d4ed8;" onclick="s(2)"></button>
+    <button id="b3" class="btn" style="background:#6366f1;" onclick="s(3)"></button>
+    <div id="list" style="text-align:left; margin-top:25px;"></div>
   </div>
 
   <!-- 3.クリエイト -->
-  <div id="d3"
-    style="display:none;">
-    <input id="cq" value="名前は?"><br>
-    <input id="c0" value="A">
-    <input id="c1" value="B"><br>
-    <input id="c2" value="C">
-    <input id="c3" value="D"><br>
-    正解(0-3):
-    <input id="ca" value="0">
-    <button onclick="add()">
-      ➕ 追加
-    </button>
-    <button onclick="startC()"
-      style="background:#06f;">
-      🚀 スタート
-    </button>
+  <div id="d3" style="display:none;">
+    <div id="ccnt" style="color:#00ffcc; font-weight:bold; margin-bottom:15px; font-size:18px;">現在の作成数: 0問</div>
+    <input id="cq" placeholder="問題文を入力"><br>
+    <input id="c0" placeholder="選択肢 ①"><br>
+    <input id="c1" placeholder="選択肢 ②"><br>
+    <input id="c2" placeholder="選択肢 ③"><br>
+    <input id="c3" placeholder="選択肢 ④"><br>
+    <select id="ca"><option value="0">正解：①</option><option value="1">正解：②</option><option value="2">正解：③</option><option value="3">正解：④</option></select>
+    <button class="tab-btn" style="width:100%; margin-top:15px; padding:12px; background:#1f2937; border:1px solid #00ffcc; color:#00ffcc; font-weight:bold;" onclick="add()">➕ 新しく問題を追加</button>
+    <button class="tab-btn" style="width:100%; margin-top:15px; padding:12px; background:#0066ff; font-weight:bold;" onclick="startC()">🚀 バトル開始！</button>
   </div>
 </div>
 
@@ -124,47 +223,37 @@ body{
 const bgm = new Audio('kahoot.wav');
 bgm.loop = true;
 
-const pin = String(
-  ((new Date().getFullYear() +
-    new Date().getMonth() +
-    new Date().getDate()) * 7)
-    % 9000 + 1000
-);
+const pin = String(((new Date().getFullYear() + new Date().getMonth() + new Date().getDate()) * 7) % 9000 + 1000);
 spin.innerText = pin;
 
 let defaultQ = [
-  {q:"カラーは?",c:["緑","青","赤","黄"],a:1},
-  {q:"スタイル?",c:["1人","100人","2人","協力"],a:0},
-  {q:"スキン名は?",c:["赤","影","氷","紫"],a:2}
+  {q:"Quizrootのメインテーマカラーに選ばれた色は？",c:["サイバーグリーン","ネオ・サイバーブルー","ルビーレッド","サンシャインイエロー"],a:1},
+  {q:"Quizrootはどんなプレイスタイルに特化したゲーム？",c:["1人プレイ専用（ボット対戦）","最大100人対戦","画面分割","協力型"],a:0},
+  {q:"ミッション特典のスキン名は？",c:["レッド","シャドウ","ダイヤモンド・アイス","パープル"],a:2}
 ];
-let qList = [];
-let cList = [];
-let cur = 0;
-let time = 0;
-let inputPin = "";
+let qList = []; let cList = []; let cur = 0; let time = 0; let inputPin = "";
 let scores = [
   {n:"あなた",s:0,b:false,st:0},
-  {n:"AI1🤖",s:0,b:true,ac:0.8,st:0},
-  {n:"AI2⚡",s:0,b:true,ac:0.6,st:0}
+  {n:"AI_Brain🤖",s:0,b:true,ac:0.8,st:0},
+  {n:"AI_Knight⚡",s:0,b:true,ac:0.6,st:0}
 ];
 
-function cc(e) {
+inp.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    if (inp.value === 'ICE-BLUE-2026') {
+    if (inp.value.trim() === 'ICE-BLUE-2026') {
+      document.documentElement.style.setProperty('--main', '#00f2fe');
+      document.documentElement.style.setProperty('--sub', '#4facfe');
       logo.style.color = '#0ff';
-      logo.innerText = "QR [ICE]";
-      alert("スキン適用！💎");
-    }
+      logo.innerText = "Quizroot [ICE]";
+      alert("特別スキン適用！💎");
+    } else { alert("無効なコードです"); }
   }
-}
+});
 
 function v(num) {
-  d1.style.display =
-    num === 1 ? 'block' : 'none';
-  d2.style.display =
-    num === 2 ? 'block' : 'none';
-  d3.style.display =
-    num === 3 ? 'block' : 'none';
+  d1.style.display = num === 1 ? 'block' : 'none';
+  d2.style.display = num === 2 ? 'block' : 'none';
+  d3.style.display = num === 3 ? 'block' : 'none';
 }
 
 function k(val) {
@@ -180,94 +269,76 @@ function k(val) {
 }
 
 function add() {
-  if(!cq.value) return;
+  if(!cq.value.trim()) return;
   cList.push({
     q: cq.value,
-    c: [c0.value, c1.value,
-        c2.value, c3.value],
+    c: [c0.value, c1.value, c2.value, c3.value],
     a: parseInt(ca.value)
   });
-  cq.value = "";
-  alert("追加完了");
+  ccnt.innerText = `現在の作成数: ${cList.length}問`;
+  cq.value = ""; c0.value = ""; c1.value = ""; c2.value = ""; c3.value = "";
 }
 
 function startC() {
   if(cList.length === 0) add();
-  start(cList);
+  if(cList.length > 0) start(cList);
 }
 
+// 🛠️ バグ修正：tabs.style.style を tabs.style.display に修正！
 function start(set) {
-  qList = set;
-  cur = 0;
-  scores.forEach(p => {
-    p.s = 0; p.st = 0;
-  });
-  v(2);
+  qList = set; cur = 0;
+  scores.forEach(p => { p.s = 0; p.st = 0; });
+  v(2); 
   tabs.style.display = 'none';
+  notif.innerHTML = `<div>⚡ システム接続成功。</div>`;
   showQ();
 }
 
 function showQ() {
   if (cur >= qList.length) {
     let pts = scores.find(p => !p.b).s;
-    let win = pts >= (qList.length * 500);
+    let needPts = Math.round((qList.length * 1000) / 2);
     d2.innerHTML = `
-      <h2>スコア: ${pts}</h2>
-      ${win ? '<h3>【ICE-BLUE-2026】</h3>':'<h3>失敗</h3>'}
-      <button onclick="location.reload()">戻る</button>`;
+      <h2 style="font-size:28px;">終了！スコア: ${pts}</h2>
+      ${pts >= needPts ? '<h3 style="color:#10b981; font-size:22px;">クリア！コード:<br>【ICE-BLUE-2026】</h3>':'<h3 style="color:#ef4444;">失敗</h3>'}
+      <button onclick="location.reload()" style="padding:15px 30px; font-size:18px; font-weight:bold; background:var(--main); color:#fff; border:none; border-radius:8px; cursor:pointer; margin-top:15px;">ロビーに戻る</button>`;
     return;
   }
   qt.innerText = `Q${cur+1}: ${qList[cur].q}`;
-  for (let i=0; i<4; i++) {
-    window['b'+i].innerText = qList[cur].c[i];
-  }
-  time = Date.now();
-  ref();
+  for (let i=0; i<4; i++) window['b'+i].innerText = qList[cur].c[i];
+  time = Date.now(); ref();
 }
 
 function s(choice) {
   notif.innerHTML = "";
   if (choice === qList[cur].a) {
-    let pts = Math.max(500,
-      Math.round(1000 - (
-      (Date.now() - time) /
-      1000 * 150)));
+    let pts = Math.max(500, Math.round(1000 - ((Date.now() - time) / 1000 * 150)));
     scores.find(p => !p.b).s += pts;
-    notif.innerHTML += `<div>🔵あなた正解(+${pts})</div>`;
+    notif.innerHTML += `<div style="color:#00ffcc; font-weight:bold;">🔵 あなた: 正解！ (+${pts}pt)</div>`;
   } else {
-    notif.innerHTML += `<div>💥あなた不正解</div>`;
+    notif.innerHTML += `<div style="color:#ef4444; font-weight:bold;">💥 あなた: 不正解</div>`;
   }
   
   scores.forEach((p, idx) => {
     if (p.b) {
       if (Math.random() < p.ac) {
-        p.s += Math.max(500,
-          Math.round(1000 - (
-          Math.random() * 2 * 150)));
-        p.st++;
-        if (p.st === (cur + 1)) {
-          notif.innerHTML += `<div>🔥連勝!${p.n}</div>`;
-        } else {
-          notif.innerHTML += `<div>✅${p.n}正解</div>`;
-        }
-      } else {
-        p.st = 0;
-        notifBox = `<div>❌${p.n}不解</div>`;
-      }
+        p.s += Math.max(500, Math.round(1000 - (Math.random() * 2 * 150))); p.st++;
+        if (p.st === (cur + 1)) { notif.innerHTML += `<div style="color:#ff3366; font-weight:bold;">🔥 連勝！${p.n}</div>`; }
+        else { notif.innerHTML += `<div>✅ ${p.n} 正解</div>`; }
+      } else { p.st = 0; notif.innerHTML += `<div style="color:#6b7280;">❌ ${p.n} 不正解</div>`; }
     }
   });
-  cur++;
-  showQ();
+  cur++; showQ();
 }
 
 function ref() {
   scores.sort((a, b) => b.s - a.s);
   list.innerHTML = "";
   scores.forEach((p, i) => {
+    let color = p.b ? '' : 'color:var(--sub);font-weight:bold;';
     list.innerHTML += `
-      <div class="row">
-        <span>${i+1}位:${p.n}</span>
-        <span>${p.s}pt</span>
+      <div class="row" style="${color}">
+        <span>${i+1}位:${p.n}</span><span>${p.s}pt</span>
       </div>`;
   });
 }
