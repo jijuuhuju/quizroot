@@ -5,14 +5,12 @@
     <title>Quizroot</title>
     <style>
         body { font-family: sans-serif; background: #0a0f1d; color: #fff; text-align: center; padding: 20px; transition: all 0.3s; }
-        /* テーマカラー変数（初期値はブルー） */
         :root { --main-color: #0066ff; --sub-color: #00d2ff; }
         .brand { font-size: 40px; font-weight: 900; background: linear-gradient(45deg, var(--sub-color), var(--main-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         #box { max-width: 600px; margin: 0 auto; background: #111827; padding: 20px; border-radius: 12px; border: 1px solid #1f2937; }
         .tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
         .tab-btn { background: #1f2937; border: 1px solid #374151; color: #fff; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
         .choice-btn { width: 48%; margin: 1%; padding: 20px; font-size: 16px; font-weight: bold; color: white; border: none; border-radius: 8px; cursor: pointer; text-align: left; }
-        /* ボタンの色もテーマカラーに連動 */
         .btn-0 { background: var(--sub-color); } .btn-1 { background: var(--main-color); } .btn-2 { background: #1d4ed8; } .btn-3 { background: #6366f1; }
         .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1f2937; }
         .key { background: #1f2937; border: 1px solid #374151; color: #fff; font-size: 18px; padding: 12px; border-radius: 6px; cursor: pointer; }
@@ -37,7 +35,6 @@
             本日のアクセスPIN: <span id="t-pin" style="font-weight:bold;">----</span>
         </div>
 
-        <!-- 👑 ココが追加されたコード入力欄！ -->
         <div style="margin-bottom: 20px; background:#131b2e; padding:10px; border-radius:6px;">
             <div style="font-size:12px; color:var(--sub-color); font-weight:bold; margin-bottom:5px;">🎁 限定スキン解放コード</div>
             <input type="text" id="skin-code" placeholder="コードを入力してEnterキー" onkeydown="checkCode(event)">
@@ -80,20 +77,19 @@
     const pin = String(( (new Date().getFullYear() + new Date().getMonth() + new Date().getDate()) * 7) % 9000 + 1000);
     document.getElementById('t-pin').innerText = pin;
 
+    // 🌟 クイズ内容をQuizrootの仕様問題に変更！
     let defaultQuizes = [
-        { q: "Quizrootのメインカラーは？", c: ["グリーン", "ブルー", "レッド", "パープル"], a: 1 },
-        { q: "このクイズを無料公開できるリポジトリサービスは？", c: ["GitHub", "GitLab", "Bitbucket", "Docker"], a: 0 },
-        { q: "JavaScriptでログを出すコマンドは？", c: ["print()", "console.log()", "echo()", "system.out"], a: 1 }
+        { q: "Quizrootのメインテーマカラーに選ばれた色は？", c: ["サイバーグリーン", "ネオ・サイバーブルー", "ルビーレッド", "サンシャインイエロー"], a: 1 },
+        { q: "Quizrootはどんなプレイスタイルに特化したゲーム？", c: ["1人プレイ専用（ボット対戦）", "最大100人のオンライン対戦", "2人画面分割プレイ", "オープンワールド協力プレイ"], a: 0 },
+        { q: "ミッションクリアでもらえる限定スキンの名前は？", c: ["ファイア・レッド", "エメラルド・シャドウ", "ダイヤモンド・アイス", "ギャラクシー・パープル"], a: 2 }
     ];
     let quizes = []; let cur = 0; let time = 0; let pPin = "";
     let scores = [{ n: "あなた", s: 0, b: false }, { n: "AI_Brain🤖", s: 0, b: true, ac: 0.8 }, { n: "AI_Knight⚡", s: 0, b: true, ac: 0.6 }];
 
-    // 🎁 スキンコードをチェックする処理
     function checkCode(e) {
         if (e.key === 'Enter') {
             const code = document.getElementById('skin-code').value.trim();
             if (code === 'ICE-BLUE-2026') {
-                // CSSの変数を書き換えてカラーをアイスブルーに変更！
                 document.documentElement.style.setProperty('--main-color', '#00f2fe');
                 document.documentElement.style.setProperty('--sub-color', '#4facfe');
                 document.getElementById('brand-logo').innerText = "Quizroot [ICE]";
