@@ -77,7 +77,6 @@
     const pin = String(( (new Date().getFullYear() + new Date().getMonth() + new Date().getDate()) * 7) % 9000 + 1000);
     document.getElementById('t-pin').innerText = pin;
 
-    // 🌟 クイズ内容をQuizrootの仕様問題に変更！
     let defaultQuizes = [
         { q: "Quizrootのメインテーマカラーに選ばれた色は？", c: ["サイバーグリーン", "ネオ・サイバーブルー", "ルビーレッド", "サンシャインイエロー"], a: 1 },
         { q: "Quizrootはどんなプレイスタイルに特化したゲーム？", c: ["1人プレイ専用（ボット対戦）", "最大100人のオンライン対戦", "2人画面分割プレイ", "オープンワールド協力プレイ"], a: 0 },
@@ -113,7 +112,17 @@
         document.getElementById('p-disp').innerText = pPin;
     }
     function startC() { if (bgm.paused) bgm.play().catch(()=>{}); start([{ q: document.getElementById('c-q').value, c: [document.getElementById('c-0').value, document.getElementById('c-1').value, document.getElementById('c-2').value, document.getElementById('c-3').value], a: parseInt(document.getElementById('c-a').value) }]); }
-    function start(set) { quizes = set; cur = 0; scores.forEach(p => p.s = 0); v('game'); document.getElementById('tabs').style.display = 'none'; showQ(); }
+    
+    // ⭐ start関数内でのスコア初期化タイミングを修正
+    function start(set) { 
+        quizes = set; 
+        cur = 0; 
+        scores.forEach(p => p.s = 0); // ここだけで初期化！
+        v('game'); 
+        document.getElementById('tabs').style.display = 'none'; 
+        showQ(); 
+    }
+
     function showQ() {
         if (cur >= quizes.length) {
             let pts = scores.find(p => !p.b).s;
@@ -123,20 +132,38 @@
         }
         document.getElementById("q-text").innerText = `Q${cur + 1}: ${quizes[cur].q}`;
         for (let i = 0; i < 4; i++) document.getElementById(`b-${i}`).innerText = quizes[cur].c[i];
-        time = Date.now(); refresh();
+        time = Date.now(); 
+        refresh(); // 毎問、最初の状態を描画
     }
+
     function s(choice) {
+        // 1. プレイヤーの採点
         if (choice === quizes[cur].a) {
             let pts = Math.max(500, Math.round(1000 - ((Date.now() - time) / 1000 * 150)));
-            scores.find(p => !p.b).s += pts; alert(`正解！ (+${pts}点)`);
-        } else alert("不正解！");
-        scores.forEach(p => { if (p.b && Math.random() < p.ac) p.s += Math.max(500, Math.round(1000 - (Math.random() * 2 * 150))); });
-        cur++; showQ();
+            scores.find(p => !p.b).s += pts; 
+            alert(`正解！ (+${pts}点)`);
+        } else {
+            alert("不正解！");
+        }
+
+        // 2. ボットたちの自動採点（修正：ここのスコア加算がリセットされなくなりました）
+        scores.forEach(p => { 
+            if (p.b && Math.random() < p.ac) {
+                p.s += Math.max(500, Math.round(1000 - (Math.random() * 2 * 150))); 
+            } 
+        });
+
+        cur++; 
+        showQ(); // 次の問題を表示＆順位更新
     }
+
     function refresh() {
         scores.sort((a, b) => b.s - a.s);
-        const list = document.getElementById("l-list"); list.innerHTML = "";
-        scores.forEach((p, i) => { list.innerHTML += `<div class="row" style="${p.b?'':'color:var(--sub-color); font-weight:bold;'}"><span>${i+1}位: ${p.n}</span><span>${p.s} pt</span></div>`; });
+        const list = document.getElementById("l-list"); 
+        list.innerHTML = "";
+        scores.forEach((p, i) => { 
+            list.innerHTML += `<div class="row" style="${p.b?'':'color:var(--sub-color); font-weight:bold;'}"><span>${i+1}位: ${p.n}</span><span>${p.s} pt</span></div>`; 
+        });
     }
 </script>
 </body>
