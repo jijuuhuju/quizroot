@@ -70,7 +70,13 @@
     const pin = String(( (new Date().getFullYear() + new Date().getMonth() + new Date().getDate()) * 7) % 9000 + 1000);
     document.getElementById('t-pin').innerText = pin;
 
-    let quizes = [{ q: "メインカラーは？", c: ["グリーン", "ブルー", "レッド", "イエロー"], a: 1 }], cur = 0, time = 0, pPin = "";
+    // 問題を3問に増量！
+    let defaultQuizes = [
+        { q: "Quizrootのメインカラーは？", c: ["グリーン", "ブルー", "レッド", "パープル"], a: 1 },
+        { q: "このクイズを無料公開できるリポジトリサービスは？", c: ["GitHub", "GitLab", "Bitbucket", "Docker"], a: 0 },
+        { q: "JavaScriptでログを出すコマンドは？", c: ["print()", "console.log()", "echo()", "system.out"], a: 1 }
+    ];
+    let quizes = []; let cur = 0; let time = 0; let pPin = "";
     let scores = [{ n: "あなた", s: 0, b: false }, { n: "AI_Brain🤖", s: 0, b: true, ac: 0.8 }, { n: "AI_Knight⚡", s: 0, b: true, ac: 0.6 }];
 
     function v(name) {
@@ -81,7 +87,7 @@
     function k(val) {
         if (bgm.paused) bgm.play().catch(()=>{});
         if (val === 'C') pPin = "";
-        else if (val === 'E') { if (pPin === pin) { alert("認証成功！"); start(quizes); } else { alert("PINコードが違います"); pPin = ""; } }
+        else if (val === 'E') { if (pPin === pin) { alert("認証成功！"); start(defaultQuizes); } else { alert("PINコードが違います"); pPin = ""; } }
         else if (pPin.length < 4) pPin += val;
         document.getElementById('p-disp').innerText = pPin;
     }
@@ -90,7 +96,9 @@
     function showQ() {
         if (cur >= quizes.length) {
             let pts = scores.find(p => !p.b).s;
-            document.getElementById('v-game').innerHTML = `<h2>終了！スコア: ${pts}</h2>` + (pts >= 1500 ? `<h3 style="color:#10b981;">ミッションクリア！<br>限定コード:【ICE-BLUE-2026】</h3>` : `<h3>1500点未満のため失敗！</h3>`) + `<button onclick="location.reload()" style="padding:10px; background:#0066ff; color:#fff; border:none; border-radius:6px; cursor:pointer;">戻る</button>`;
+            // クリエイトモード（1問だけ）の時は合格基準を500点、本編は1500点に自動調整
+            let needPts = quizes.length === 1 ? 500 : 1500;
+            document.getElementById('v-game').innerHTML = `<h2>終了！スコア: ${pts}</h2>` + (pts >= needPts ? `<h3 style="color:#10b981;">ミッションクリア！<br>限定コード:【ICE-BLUE-2026】</h3>` : `<h3>${needPts}点未満のため失敗！</h3>`) + `<button onclick="location.reload()" style="padding:10px; background:#0066ff; color:#fff; border:none; border-radius:6px; cursor:pointer;">戻る</button>`;
             return;
         }
         document.getElementById("q-text").innerText = `Q${cur + 1}: ${quizes[cur].q}`;
