@@ -1,170 +1,253 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Quizroot</title>
-    <style>
-        body { font-family: sans-serif; background: #0a0f1d; color: #fff; text-align: center; padding: 20px; transition: all 0.3s; }
-        :root { --main-color: #0066ff; --sub-color: #00d2ff; }
-        .brand { font-size: 40px; font-weight: 900; background: linear-gradient(45deg, var(--sub-color), var(--main-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        #box { max-width: 600px; margin: 0 auto; background: #111827; padding: 20px; border-radius: 12px; border: 1px solid #1f2937; }
-        .tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
-        .tab-btn { background: #1f2937; border: 1px solid #374151; color: #fff; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
-        .choice-btn { width: 48%; margin: 1%; padding: 20px; font-size: 16px; font-weight: bold; color: white; border: none; border-radius: 8px; cursor: pointer; text-align: left; }
-        .btn-0 { background: var(--sub-color); } .btn-1 { background: var(--main-color); } .btn-2 { background: #1d4ed8; } .btn-3 { background: #6366f1; }
-        .row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #1f2937; }
-        .key { background: #1f2937; border: 1px solid #374151; color: #fff; font-size: 18px; padding: 12px; border-radius: 6px; cursor: pointer; }
-        input { width: 90%; padding: 8px; margin: 5px 0; background: #1f2937; color: #fff; border: 1px solid #374151; border-radius: 4px; text-align: center; }
-    </style>
+<meta charset="UTF-8">
+<title>Quizroot</title>
+<style>
+body {
+  font-family: sans-serif;
+  background: #0a0f1d;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+:root {
+  --main: #0066ff;
+  --sub: #00d2ff;
+}
+.brand {
+  font-size: 35px;
+  font-weight: 900;
+  background: linear-gradient(
+    45deg, var(--sub), var(--main)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#box {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #111827;
+  padding: 15px;
+  border-radius: 12px;
+}
+.tabs {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.tab-btn {
+  background: #1f2937;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.choice-btn {
+  width: 96%;
+  margin: 2%;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.btn-0 { background: var(--sub); }
+.btn-1 { background: var(--main); }
+.btn-2 { background: #1d4ed8; }
+.btn-3 { background: #6366f1; }
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+.key {
+  background: #1f2937;
+  color: #fff;
+  font-size: 18px;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+input {
+  width: 90%;
+  padding: 8px;
+  margin: 5px 0;
+  background: #1f2937;
+  color: #fff;
+  text-align: center;
+}
+#ai-notif {
+  background: rgba(0,102,255,0.1);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 13px;
+  text-align: left;
+}
+</style>
 </head>
 <body>
 
-<div class="brand" id="brand-logo">Quizroot</div>
-<p style="color:#516385;" id="sub-title">AIをハックせよ</p>
+<div class="brand" id="b-logo">Quizroot</div>
+<p style="color:#516385;">AIをハックせよ</p>
 
 <div id="box">
-    <div class="tabs" id="tabs">
-        <button class="tab-btn" onclick="v('lobby')">🔑 ロビー</button>
-        <button class="tab-btn" onclick="v('create')">🔧 クリエイト</button>
+  <div class="tabs" id="tabs">
+    <button class="tab-btn" onclick="v('lobby')">🔑 ロビー</button>
+    <button class="tab-btn" onclick="v('create')">🔧 クリエイト</button>
+  </div>
+
+  <div id="v-lobby">
+    <div style="background:#1f2937; padding:10px; text-align:left;">
+      <span style="color:var(--sub);">📅 ミッション:</span> 1500点以上で限定スキン！<br>
+      本日のPIN: <span id="t-pin">----</span>
     </div>
-
-    <!-- 1. ロビー -->
-    <div id="v-lobby">
-        <div style="background:#1f2937; padding:10px; border-radius:6px; margin-bottom:15px; text-align:left;">
-            <span style="color:var(--sub-color); font-weight:bold;">📅 本日のミッション:</span> 1500点以上で限定スキン解放！<br>
-            本日のアクセスPIN: <span id="t-pin" style="font-weight:bold;">----</span>
-        </div>
-
-        <div style="margin-bottom: 20px; background:#131b2e; padding:10px; border-radius:6px;">
-            <div style="font-size:12px; color:var(--sub-color); font-weight:bold; margin-bottom:5px;">🎁 限定スキン解放コード</div>
-            <input type="text" id="skin-code" placeholder="コードを入力してEnterキー" onkeydown="checkCode(event)">
-        </div>
-
-        <div id="p-disp" style="font-size:28px; color:var(--sub-color); margin-bottom:10px; height:35px;"></div>
-        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:180px; margin:0 auto;">
-            <button class="key" onclick="k('1')">1</button><button class="key" onclick="k('2')">2</button><button class="key" onclick="k('3')">3</button>
-            <button class="key" onclick="k('4')">4</button><button class="key" onclick="k('5')">5</button><button class="key" onclick="k('6')">6</button>
-            <button class="key" onclick="k('7')">7</button><button class="key" onclick="k('8')">8</button><button class="key" onclick="k('9')">9</button>
-            <button class="key" style="background:#dc2626;" onclick="k('C')">C</button><button class="key" onclick="k('0')">0</button><button class="key" style="background:#16a34a;" onclick="k('E')">▶</button>
-        </div>
+    <div style="margin:20px 0; background:#131b2e; padding:10px;">
+      <div style="font-size:12px; color:var(--sub);">🎁 限定スキンコード</div>
+      <input type="text" id="skin-code" onkeydown="cc(event)">
     </div>
-
-    <!-- 2. ゲーム -->
-    <div id="v-game" style="display:none;">
-        <div id="q-text" style="font-size:20px; font-weight:bold; margin-bottom:15px;"></div>
-        <div style="display:flex; flex-wrap:wrap;">
-            <button id="b-0" class="choice-btn btn-0" onclick="s(0)"></button><button id="b-1" class="choice-btn btn-1" onclick="s(1)"></button>
-            <button id="b-2" class="choice-btn btn-2" onclick="s(2)"></button><button id="b-3" class="choice-btn btn-3" onclick="s(3)"></button>
-        </div>
-        <div style="text-align:left; margin-top:20px; background:#0b0f19; padding:10px; border-radius:6px;">
-            <div style="font-size:12px; color:var(--sub-color); font-weight:bold;">🏆 順位表</div>
-            <div id="l-list"></div>
-        </div>
+    <div id="p-disp" style="font-size:28px; color:var(--sub); height:35px;"></div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:180px; margin:0 auto;">
+      <button class="key" onclick="k('1')">1</button><button class="key" onclick="k('2')">2</button><button class="key" onclick="k('3')">3</button>
+      <button class="key" onclick="k('4')">4</button><button class="key" onclick="k('5')">5</button><button class="key" onclick="k('6')">6</button>
+      <button class="key" onclick="k('7')">7</button><button class="key" onclick="k('8')">8</button><button class="key" onclick="k('9')">9</button>
+      <button class="key" style="background:#dc2626;" onclick="k('C')">C</button><button class="key" onclick="k('0')">0</button><button class="key" style="background:#16a34a;" onclick="k('E')">▶</button>
     </div>
+  </div>
 
-    <!-- 3. クリエイト -->
-    <div id="v-create" style="display:none;">
-        <input type="text" id="c-q" value="このゲームの名前は？">
-        <input type="text" id="c-0" value="Quizroot"><input type="text" id="c-1" value="Kahoot">
-        <input type="text" id="c-2" value="Quizlet"><input type="text" id="c-3" value="Unknown">
-        <select id="c-a" style="width:93%; padding:8px; background:#1f2937; color:#fff; border:1px solid #374151;"><option value="0">①</option><option value="1">②</option><option value="2">③</option><option value="3">④</option></select>
-        <button style="background:#0066ff; color:#fff; border:none; padding:10px; width:93%; margin-top:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="startC()">カスタムバトル開始！🚀</button>
+  <div id="v-game" style="display:none;">
+    <div id="ai-notif"><div>システム起動...</div></div>
+    <div id="q-text" style="font-size:18px; font-weight:bold; margin-bottom:15px;"></div>
+    <button id="b-0" class="choice-btn btn-0" onclick="s(0)"></button>
+    <button id="b-1" class="choice-btn btn-1" onclick="s(1)"></button>
+    <button id="b-2" class="choice-btn btn-2" onclick="s(2)"></button>
+    <button id="b-3" class="choice-btn btn-3" onclick="s(3)"></button>
+    <div style="text-align:left; margin-top:20px; background:#0b0f19; padding:10px;">
+      <div id="l-list"></div>
     </div>
+  </div>
+
+  <div id="v-create" style="display:none;">
+    <input type="text" id="c-q" value="このゲームの名前は？">
+    <input type="text" id="c-0" value="Quizroot"><input type="text" id="c-1" value="Kahoot">
+    <input type="text" id="c-2" value="Quizlet"><input type="text" id="c-3" value="Unknown">
+    <select id="c-a" style="width:93%; padding:8px;"><option value="0">①</option><option value="1">②</option><option value="2">③</option><option value="3">④</option></select>
+    <button style="background:#0066ff; color:#fff; padding:10px; width:93%; margin-top:10px;" onclick="startC()">カスタム開始🚀</button>
+  </div>
 </div>
 
 <script>
-    const bgm = new Audio('kahoot.wav'); bgm.loop = true;
-    const pin = String(( (new Date().getFullYear() + new Date().getMonth() + new Date().getDate()) * 7) % 9000 + 1000);
-    document.getElementById('t-pin').innerText = pin;
+const bgm = new Audio('kahoot.wav');
+bgm.loop = true;
 
-    let defaultQuizes = [
-        { q: "Quizrootのメインテーマカラーに選ばれた色は？", c: ["サイバーグリーン", "ネオ・サイバーブルー", "ルビーレッド", "サンシャインイエロー"], a: 1 },
-        { q: "Quizrootはどんなプレイスタイルに特化したゲーム？", c: ["1人プレイ専用（ボット対戦）", "最大100人のオンライン対戦", "2人画面分割プレイ", "オープンワールド協力プレイ"], a: 0 },
-        { q: "ミッションクリアでもらえる限定スキンの名前は？", c: ["ファイア・レッド", "エメラルド・シャドウ", "ダイヤモンド・アイス", "ギャラクシー・パープル"], a: 2 }
-    ];
-    let quizes = []; let cur = 0; let time = 0; let pPin = "";
-    let scores = [{ n: "あなた", s: 0, b: false }, { n: "AI_Brain🤖", s: 0, b: true, ac: 0.8 }, { n: "AI_Knight⚡", s: 0, b: true, ac: 0.6 }];
+const pin = String(((new Date().getFullYear() + new Date().getMonth() + new Date().getDate()) * 7) % 9000 + 1000);
+document.getElementById('t-pin').innerText = pin;
 
-    function checkCode(e) {
-        if (e.key === 'Enter') {
-            const code = document.getElementById('skin-code').value.trim();
-            if (code === 'ICE-BLUE-2026') {
-                document.documentElement.style.setProperty('--main-color', '#00f2fe');
-                document.documentElement.style.setProperty('--sub-color', '#4facfe');
-                document.getElementById('brand-logo').innerText = "Quizroot [ICE]";
-                alert("特別コスチューム【ダイヤモンド・アイス】が適用されました！💎");
-            } else {
-                alert("無効なコードです");
-            }
-        }
+let defaultQuizes = [
+  { q: "メインテーマカラーは？", c: ["グリーン", "ブルー", "レッド", "イエロー"], a: 1 },
+  { q: "どんなプレイスタイル？", c: ["1人プレイ専用", "100人対戦", "画面分割", "協力型"], a: 0 },
+  { q: "クリア特典スキンの名前は？", c: ["レッド", "シャドウ", "アイス", "パープル"], a: 2 }
+];
+
+let quizes = []; let cur = 0; let time = 0; let pPin = "";
+let scores = [
+  { n: "あなた", s: 0, b: false, streak: 0 },
+  { n: "AI_Brain🤖", s: 0, b: true, ac: 0.8, streak: 0 },
+  { n: "AI_Knight⚡", s: 0, b: true, ac: 0.6, streak: 0 }
+];
+
+function cc(e) {
+  if (e.key === 'Enter') {
+    const code = document.getElementById('skin-code').value.trim();
+    if (code === 'ICE-BLUE-2026') {
+      document.documentElement.style.setProperty('--main', '#00f2fe');
+      document.documentElement.style.setProperty('--sub', '#4facfe');
+      document.getElementById('b-logo').innerText = "Quizroot [ICE]";
+      alert("特別スキン適用！💎");
+    } else { alert("無効なコードです"); }
+  }
+}
+
+function v(name) {
+  document.getElementById('v-lobby').style.display = name === 'lobby' ? 'block' : 'none';
+  document.getElementById('v-game').style.display = name === 'game' ? 'block' : 'none';
+  document.getElementById('v-create').style.display = name === 'create' ? 'block' : 'none';
+}
+
+function k(val) {
+  if (bgm.paused) bgm.play().catch(()=>{});
+  if (val === 'C') pPin = "";
+  else if (val === 'E') { if (pPin === pin) { start(defaultQuizes); } else { pPin = ""; } }
+  else if (pPin.length < 4) { pPin += val; }
+  document.getElementById('p-disp').innerText = pPin;
+}
+
+function startC() {
+  if (bgm.paused) bgm.play().catch(()=>{});
+  start([{
+    q: document.getElementById('c-q').value,
+    c: [document.getElementById('c-0').value, document.getElementById('c-1').value, document.getElementById('c-2').value, document.getElementById('c-3').value],
+    a: parseInt(document.getElementById('c-a').value)
+  }]);
+}
+
+function start(set) {
+  quizes = set; cur = 0;
+  scores.forEach(p => { p.s = 0; p.streak = 0; });
+  v('game');
+  document.getElementById('tabs').style.display = 'none';
+  document.getElementById('ai-notif').innerHTML = `<div>⚡ システム接続成功。</div>`;
+  showQ();
+}
+
+function showQ() {
+  if (cur >= quizes.length) {
+    let pts = scores.find(p => !p.b).s;
+    let needPts = quizes.length === 1 ? 500 : 1500;
+    document.getElementById('v-game').innerHTML = `
+      <h2>終了！スコア: ${pts}</h2>
+      ${pts >= needPts ? `<h3>クリア！コード:【ICE-BLUE-2026】</h3>` : `<h3>失敗！</h3>`}
+      <button onclick="location.reload()" style="padding:10px;">戻る</button>`;
+    return;
+  }
+  document.getElementById("q-text").innerText = `Q${cur + 1}: ${quizes[cur].q}`;
+  for (let i = 0; i < 4; i++) document.getElementById(`b-${i}`).innerText = quizes[cur].c[i];
+  time = Date.now(); refresh();
+}
+
+function s(choice) {
+  let nb = document.getElementById('ai-notif'); nb.innerHTML = "";
+  if (choice === quizes[cur].a) {
+    let pts = Math.max(500, Math.round(1000 - ((Date.now() - time) / 1000 * 150)));
+    scores.find(p => !p.b).s += pts;
+    nb.innerHTML += `<div style="color:#00ffcc;">🔵 あなた: 正解！ (+${pts}pt)</div>`;
+  } else { nb.innerHTML += `<div style="color:#ef4444;">💥 あなた: 不正解</div>`; }
+  
+  scores.forEach(p => {
+    if (p.b) {
+      if (Math.random() < p.ac) {
+        p.s += Math.max(500, Math.round(1000 - (Math.random() * 2 * 150))); p.streak++;
+        if (p.streak === (cur + 1)) { nb.innerHTML += `<div style="color:#ff3366;">🔥 連勝！${p.n}全問正解中</div>`; }
+        else { nb.innerHTML += `<div>✅ ${p.n} 正解</div>`; }
+      } else { p.streak = 0; nb.innerHTML += `<div style="color:#6b7280;">❌ ${p.n} 不正解</div>`; }
     }
+  });
+  cur++; showQ();
+}
 
-    function v(name) {
-        document.getElementById('v-lobby').style.display = name === 'lobby' ? 'block' : 'none';
-        document.getElementById('v-game').style.display = name === 'game' ? 'block' : 'none';
-        document.getElementById('v-create').style.display = name === 'create' ? 'block' : 'none';
-    }
-    function k(val) {
-        if (bgm.paused) bgm.play().catch(()=>{});
-        if (val === 'C') pPin = "";
-        else if (val === 'E') { if (pPin === pin) { alert("認証成功！"); start(defaultQuizes); } else { alert("PINコードが違います"); pPin = ""; } }
-        else if (pPin.length < 4) pPin += val;
-        document.getElementById('p-disp').innerText = pPin;
-    }
-    function startC() { if (bgm.paused) bgm.play().catch(()=>{}); start([{ q: document.getElementById('c-q').value, c: [document.getElementById('c-0').value, document.getElementById('c-1').value, document.getElementById('c-2').value, document.getElementById('c-3').value], a: parseInt(document.getElementById('c-a').value) }]); }
-    
-    // ⭐ start関数内でのスコア初期化タイミングを修正
-    function start(set) { 
-        quizes = set; 
-        cur = 0; 
-        scores.forEach(p => p.s = 0); // ここだけで初期化！
-        v('game'); 
-        document.getElementById('tabs').style.display = 'none'; 
-        showQ(); 
-    }
-
-    function showQ() {
-        if (cur >= quizes.length) {
-            let pts = scores.find(p => !p.b).s;
-            let needPts = quizes.length === 1 ? 500 : 1500;
-            document.getElementById('v-game').innerHTML = `<h2>終了！スコア: ${pts}</h2>` + (pts >= needPts ? `<h3 style="color:#10b981;">ミッションクリア！<br>限定コード:【ICE-BLUE-2026】</h3>` : `<h3>${needPts}点未満のため失敗！</h3>`) + `<button onclick="location.reload()" style="padding:10px; background:#0066ff; color:#fff; border:none; border-radius:6px; cursor:pointer;">戻る</button>`;
-            return;
-        }
-        document.getElementById("q-text").innerText = `Q${cur + 1}: ${quizes[cur].q}`;
-        for (let i = 0; i < 4; i++) document.getElementById(`b-${i}`).innerText = quizes[cur].c[i];
-        time = Date.now(); 
-        refresh(); // 毎問、最初の状態を描画
-    }
-
-    function s(choice) {
-        // 1. プレイヤーの採点
-        if (choice === quizes[cur].a) {
-            let pts = Math.max(500, Math.round(1000 - ((Date.now() - time) / 1000 * 150)));
-            scores.find(p => !p.b).s += pts; 
-            alert(`正解！ (+${pts}点)`);
-        } else {
-            alert("不正解！");
-        }
-
-        // 2. ボットたちの自動採点（修正：ここのスコア加算がリセットされなくなりました）
-        scores.forEach(p => { 
-            if (p.b && Math.random() < p.ac) {
-                p.s += Math.max(500, Math.round(1000 - (Math.random() * 2 * 150))); 
-            } 
-        });
-
-        cur++; 
-        showQ(); // 次の問題を表示＆順位更新
-    }
-
-    function refresh() {
-        scores.sort((a, b) => b.s - a.s);
-        const list = document.getElementById("l-list"); 
-        list.innerHTML = "";
-        scores.forEach((p, i) => { 
-            list.innerHTML += `<div class="row" style="${p.b?'':'color:var(--sub-color); font-weight:bold;'}"><span>${i+1}位: ${p.n}</span><span>${p.s} pt</span></div>`; 
-        });
-    }
+function refresh() {
+  scores.sort((a, b) => b.s - a.s);
+  const list = document.getElementById("l-list"); list.innerHTML = "";
+  scores.forEach((p, i) => {
+    list.innerHTML += `
+      <div class="row" style="${p.b ? '' : 'color:var(--sub);font-weight:bold;'}">
+        <span>${i + 1}位: ${p.n}</span><span>${p.s} pt</span>
+      </div>`;
+  });
+}
 </script>
 </body>
 </html>
